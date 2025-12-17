@@ -1,5 +1,25 @@
 package config
 
+import (
+	"fmt"
+	"server/model/appTypes"
+	"strings"
+)
+
+func (s System) Addr() string {
+	return fmt.Sprintf("%s:%d", s.Host, s.Port)
+}
+func (s System) Storage() appTypes.Storage {
+	switch strings.ToLower(s.OssType) {
+	case "local", "Local":
+		return appTypes.Local
+	case "qiniu", "Qiniu":
+		return appTypes.Qiniu
+	default:
+		return appTypes.Local
+	}
+}
+
 type System struct {
 	Host           string `json:"-" yaml:"host"`                          // 服务器绑定的主机地址，通常为 0.0.0.0 表示监听所有可用地址
 	Port           int    `json:"-" yaml:"port"`                          // 服务器监听的端口号，通常用于 HTTP 服务
