@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: ccr.ccs.tencentyun.com/luohongqiang/mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blog_db
+    volumes:
+      - ./data/mysql:/var/lib/mysql          # 本地 data/mysql
+
+  redis:
+    image: ccr.ccs.tencentyun.com/luohongqiang/redis:8.4.0
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data                   # 本地 data/redis
+
+  elasticsearch:
+    image: ccr.ccs.tencentyun.com/luohongqiang/elasticsearch:8.17.0
+    container_name: es
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.http.ssl.enabled=false
+      - xpack.license.self_generated.type=trial
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms84m -Xmx512m"
+    volumes:
+      - ./data/es:/usr/share/elasticsearch/data   # 本地 data/es
