@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"server/model/appTypes"
 	"strings"
+
+	"gorm.io/gorm/logger"
 )
 
 func (s System) Addr() string {
@@ -17,6 +19,24 @@ func (s System) Storage() appTypes.Storage {
 		return appTypes.Qiniu
 	default:
 		return appTypes.Local
+	}
+}
+
+func (m Mysql) Dsn() string {
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?%s", m.Username, m.Password, m.Host, m.Port, m.DBName, m.Config)
+}
+func (m Mysql) LogLevel() logger.LogLevel {
+	switch strings.ToLower(m.LogMode) {
+	case "silent", "Silent":
+		return logger.Silent
+	case "error", "Error":
+		return logger.Error
+	case "warn", "Warn":
+		return logger.Warn
+	case "info", "Info":
+		return logger.Info
+	default:
+		return logger.Info
 	}
 }
 
