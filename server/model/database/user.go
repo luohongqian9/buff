@@ -1,9 +1,10 @@
 package database
 
 import (
-	"github.com/google/uuid"
 	"server/global"
 	"server/model/appTypes"
+
+	"github.com/google/uuid"
 )
 
 type User struct {
@@ -15,7 +16,7 @@ type User struct {
 	Openid    string            `json:"openid"`
 	Avatar    string            `json:"avatar"`
 	Address   string            `json:"address"`
-	Signature string            `json:"signature",gorm:"default:'签名是空白的，这位用户似乎比较低调。'"`
+	Signature string            `json:"signature" gorm:"default:'签名是空白的，这位用户似乎比较低调。'"`
 	RoleID    appTypes.RoleID   `json:"role"`
 	Register  appTypes.Register `json:"register"`
 	IsActive  bool              `json:"is_active"`

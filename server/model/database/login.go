@@ -12,5 +12,5 @@ type Login struct {
 	OS          string `json:"os"`
 	BrowserInfo string `json:"browser_info"`
 	DeviceInfo  string `json:"device_info"`
-	status      int    `json:"status"`
+	Status      int    `json:"status"`
 }

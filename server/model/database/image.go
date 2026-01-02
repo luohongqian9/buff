@@ -8,7 +8,7 @@ import (
 type Image struct {
 	global.MODEL
 	Name     string            `json:"name"`
-	URl      string            `json:"url" gorm:"size:255;unique"`
+	URL      string            `json:"url" gorm:"size:255;unique"`
 	Category appTypes.Category `json:"category"`
 	Storage  appTypes.Storage  `json:"storage"`
 }
